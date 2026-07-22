@@ -1,93 +1,89 @@
-// Importa o StyleSheet do React Native.
-// Ele transforma nosso objeto de estilos em um formato otimizado.
 import { StyleSheet } from 'react-native';
-
 
 export const styles = StyleSheet.create({
 
-    // Estilo principal da tela.
     container: {
 
-        // Faz a tela ocupar todo o espaço disponível.
         flex: 1,
 
-        // Centraliza os componentes verticalmente.
         justifyContent: 'center',
 
-        // Espaçamento interno da tela.
-        padding: 90,
+        paddingHorizontal: 25,
+
+        backgroundColor: '#F5F5F5',
 
     },
 
-
-    // Título da tela.
     title: {
-        alignSelf: 'center',
-        // Tamanho da fonte.
-        fontSize: 28,
 
-        // Texto em negrito.
+        fontSize: 32,
+
         fontWeight: 'bold',
 
-        // Espaço abaixo do título.
-        marginBottom: 30,
+        color: '#1976D2',
+
+        textAlign: 'center',
 
     },
 
+    subtitle: {
 
-    // Campos de texto.
+        fontSize: 16,
+
+        color: '#616161',
+
+        textAlign: 'center',
+
+        marginTop: 8,
+
+        marginBottom: 40,
+
+    },
+
     input: {
 
-        // Altura do campo.
-        height: 50,
+        backgroundColor: '#FFFFFF',
 
-        // Cria uma borda ao redor do campo.
+        borderRadius: 10,
+
         borderWidth: 1,
 
-        // Espaçamento interno do texto.
+        borderColor: '#E0E0E0',
+
         paddingHorizontal: 15,
 
-        // Espaço entre os campos.
+        height: 50,
+
         marginBottom: 15,
 
-        // Arredonda a borda.
-        borderRadius: 8,
+        fontSize: 16,
 
     },
 
-
-    // Botão de entrar.
     button: {
 
-        // Espaçamento vertical.
-        padding: 15,
+        backgroundColor: '#1976D2',
 
-        // Arredondamento.
-        borderRadius: 8,
+        height: 50,
 
-        // Centraliza o texto do botão.
+        borderRadius: 10,
+
+        justifyContent: 'center',
+
         alignItems: 'center',
 
-    },
+        marginTop: 10,
 
+    },
 
     buttonText: {
 
-        // Tamanho do texto do botão.
-        fontSize: 18,
+        color: '#FFFFFF',
 
-        // Texto em negrito.
         fontWeight: 'bold',
 
-    },
-
-
-    error: {
-
-        // Espaço acima da mensagem.
-        marginBottom: 15,
+        fontSize: 16,
 
     },
-
 
 });

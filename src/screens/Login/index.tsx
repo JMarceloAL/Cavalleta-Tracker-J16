@@ -1,102 +1,93 @@
-// Importa os componentes visuais do React Native.
+// Importa os Hooks do React.
+import React, { useState } from 'react';
+
+// Componentes visuais do React Native.
 import {
-    Text,
     View,
+    Text,
     TextInput,
     TouchableOpacity,
     Alert,
 } from 'react-native';
 
-
-// useState permite guardar valores que mudam na tela.
-// Exemplo: texto digitado no input.
-import { useState } from 'react';
-
-
-// Importa os estilos separados.
+// Importa os estilos.
 import { styles } from './styles';
 
-
-// Importa nosso serviço de autenticação.
+// Serviço responsável pela autenticação.
 import { login } from '../../services/auth';
 
-
-// O navigation vem automaticamente do React Navigation.
-// Ele permite trocar de tela.
 export default function Login({ navigation }: any) {
 
-
-    // Guarda o username digitado.
+    /*
+        Armazena o usuário digitado.
+    */
     const [username, setUsername] = useState('');
 
-
-    // Guarda a senha digitada.
+    /*
+        Armazena a senha digitada.
+    */
     const [password, setPassword] = useState('');
 
-
-
+    /*
+        Realiza o login.
+    */
     async function handleLogin() {
 
-
-        // Chama o serviço que verifica usuário e senha.
         const success = await login(
+
             username,
+
             password
+
         );
 
-
-        // Caso esteja correto.
         if (success) {
 
+            navigation.replace('Home');
 
-            // Navega para a Home.
-            navigation.navigate('Home');
-
-
-        } else {
-
-
-            // Mostra uma mensagem de erro.
-            Alert.alert(
-                'Erro',
-                'Usuário ou senha incorretos.'
-            );
-
+            return;
 
         }
 
+        Alert.alert(
+
+            'Erro',
+
+            'Usuário ou senha inválidos.'
+
+        );
+
     }
-
-
 
     return (
 
         <View style={styles.container}>
 
-
             <Text style={styles.title}>
-                Login
+
+                Cavalleta Connect
+
             </Text>
 
+            <Text style={styles.subtitle}>
 
+                Sistema de Rastreamento J16
+
+            </Text>
 
             <TextInput
 
                 style={styles.input}
 
-                placeholder="Usuario"
+                placeholder="Usuário"
 
-                // O valor mostrado no campo.
+                autoCapitalize="none"
+
                 value={username}
 
-                // Atualiza o estado quando o usuário digita.
                 onChangeText={setUsername}
 
-
-
             />
-
-
 
             <TextInput
 
@@ -104,16 +95,13 @@ export default function Login({ navigation }: any) {
 
                 placeholder="Senha"
 
+                secureTextEntry
+
                 value={password}
 
                 onChangeText={setPassword}
 
-                // Esconde os caracteres digitados.
-                secureTextEntry
-
             />
-
-
 
             <TouchableOpacity
 
@@ -124,15 +112,12 @@ export default function Login({ navigation }: any) {
             >
 
                 <Text style={styles.buttonText}>
+
                     Entrar
+
                 </Text>
 
-
             </TouchableOpacity>
-
-
-
-
 
         </View>
 

@@ -1,20 +1,52 @@
-// Usuário fixo do sistema.
-const USER = 'Root';
+// Serviço responsável pela autenticação.
 
-// Senha fixa do sistema.
-const PASSWORD = 'Root';
+// Serviço responsável por salvar a sessão.
+import { saveSession } from './storage/authStorage';
 
+// Usuário fixo.
+const USERNAME = 'root';
 
-// Função responsável por validar o login.
-export function login(
+// Senha fixa.
+const PASSWORD = 'root';
+
+/*
+    Realiza a autenticação do usuário.
+
+    Retorna:
+
+    true  -> Login válido.
+
+    false -> Login inválido.
+*/
+export async function login(
+
     username: string,
-    password: string
-): boolean {
 
-    // Retorna verdadeiro apenas se usuário e senha estiverem corretos.
-    return (
-        username === USER &&
+    password: string
+
+): Promise<boolean> {
+
+    // Remove espaços em branco.
+    username = username.trim();
+
+    password = password.trim();
+
+    // Verifica usuário e senha.
+    if (
+
+        username === USERNAME &&
+
         password === PASSWORD
-    );
+
+    ) {
+
+        // Salva a sessão.
+        await saveSession();
+
+        return true;
+
+    }
+
+    return false;
 
 }

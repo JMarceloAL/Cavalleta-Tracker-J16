@@ -1,62 +1,105 @@
-// Importa o componente responsável pela navegação em pilha.
-// Ele permite navegar entre telas colocando uma tela sobre a outra.
+// Importa os Hooks do React.
+import React, {
+    useEffect,
+    useState,
+} from 'react';
+
+// Responsável pela navegação.
 import { NavigationContainer } from '@react-navigation/native';
 
-
-// Importa o navegador Stack.
-// Ele controla a sequência de telas do aplicativo.
+// Navegação em pilha.
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
-// Importa as telas que serão utilizadas nas rotas.
+// Telas.
 import Login from '../screens/Login';
 
-import Home from '../screens/Home';
+import BottomTabs from './TabNavigator';
 
+// Serviço responsável por verificar se existe uma sessão salva.
+import { getSession } from '../services/storage/authStorage';
 
-// Cria uma instância do navegador.
-// O Stack é como uma pilha de telas:
-// Login -> Home -> Detalhes, por exemplo.
+// Cria o Stack Navigator.
 const Stack = createNativeStackNavigator();
-
 
 export default function AppRoutes() {
 
+    // Controla se o aplicativo ainda está carregando.
+    const [loading, setLoading] = useState(true);
+
+    // Define qual tela será aberta primeiro.
+    const [initialRoute, setInitialRoute] = useState<
+        'Login' | 'Home'
+    >('Login');
+
+    /*
+        Executa apenas uma vez quando o aplicativo inicia.
+
+        Verifica se existe uma sessão salva.
+    */
+    useEffect(() => {
+
+        async function loadSession() {
+
+            const logged = await getSession();
+
+            if (logged) {
+
+                setInitialRoute('Home');
+
+            }
+
+            setLoading(false);
+
+        }
+
+        loadSession();
+
+    }, []);
+
+    /*
+        Enquanto verifica a sessão,
+        não exibe nenhuma tela.
+    */
+    if (loading) {
+
+        return null;
+
+    }
+
     return (
 
-        // NavigationContainer mantém o estado da navegação.
-        // Ele deve envolver todas as rotas do aplicativo.
         <NavigationContainer>
 
             <Stack.Navigator
 
-                // Define qual tela abre primeiro.
-                initialRouteName="Login"
+                initialRouteName={initialRoute}
 
                 screenOptions={{
-                    // Remove o cabeçalho padrão.
                     headerShown: false,
                 }}
 
             >
 
                 <Stack.Screen
+
                     name="Login"
+
                     component={Login}
+
                 />
-
-
-
 
                 <Stack.Screen
-                    name="Home"
-                    component={Home}
-                />
 
+                    name="Home"
+
+                    component={BottomTabs}
+
+                />
 
             </Stack.Navigator>
 
         </NavigationContainer>
 
     );
+
 }
